@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>Title</title>
+</h:head>
+
+<h:body styleClass="center">
+    <h3 class="h3 text-center"> Gestion des Employes </h3>
+    <div class="container center mt-5 mx-auto">
+        <h:form>
+            <fieldset class="border p-3 rounded" style="max-width: 900px;">
+                <legend class="font-weight-bold">${employeBean.label} d'un employe</legend>
+
+                <div class="row mb-3 ">
+                    <div class="col-md-6 mx-auto">
+                        <label for="idInput" class="form-label">ID:</label>
+                        <h:inputText id="idInput" value="#{employeBean.employe.id}" class="form-control" readonly="true" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6 mx-auto">
+                        <label for="codeInput" class="form-label">Nom:</label>
+                        <h:inputText id="codeInput" value="#{employeBean.employe.nom}" class="form-control" required="true" />
+                    </div>
+                </div>
+
+                <div class="row mb-3 ">
+                    <div class="col-md-6 mx-auto">
+                        <label for="telInput" class="form-label">Tel:</label>
+                        <h:inputText id="telInput" value="#{employeBean.employe.tel}" class="form-control" required="true" />
+                    </div>
+                </div>
+                <div class="row mb-3 ">
+                    <div class="col-md-6 mx-auto">
+                        <label for="salInput" class="form-label">Salaire:</label>
+                        <h:inputText id="salInput" value="#{employeBean.employe.salaire}" class="form-control" required="true" type="number"/>
+                    </div>
+                </div>
+                <h:form>
+                    <div class="row mb-3 ">
+                        <div class="col-md-6 mx-auto">
+                            <label class="form-label">Entreprises :</label>
+                            <h:selectOneMenu value = "#{employeBean.entreprise}" class="form-control custom-select">
+                                <f:selectItem itemValue = "#{employeBean.employe.entreprise.id}" itemLabel = "#{employeBean.employe.entreprise !=null ? employeBean.employe.entreprise.nom : 'Select one' }" />
+                                <f:selectItems value="#{entrepriseBean.entreprises}" var="e" itemLabel="#{e.nom}" itemValue="#{e.id}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                </h:form>
+
+                <div class="row mb-3">
+                    <div class="col-md-6 mx-auto">
+                        <h:commandButton action="#{employeBean.save()}" value="#{employeBean.label}" styleClass="btn btn-success"/>
+                    </div>
+                </div>
+            </fieldset>
+        </h:form>
+    </div>
+
+    <div class="container mt-5 mx-auto">
+        <h:form>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Tel</th>
+                    <th scope="col">Salaire</th>
+                    <th scope="col">Entreprise</th>
+                    <th scope="col">Modifier</th>
+                    <th scope="col">Supprimer</th>
+                </tr>
+                </thead>
+                <tbody>
+                <ui:repeat var="emp" value="#{employeBean.employes}">
+                    <tr style="text-align: center">
+                        <td>#{emp.id}</td>
+                        <td>#{emp.nom}</td>
+                        <td>#{emp.tel}</td>
+                        <td>#{emp.salaire}</td>
+                        <td>#{emp.entreprise.nom}</td>
+                        <td>
+                            <h:commandLink action="#{employeBean.modifier(emp)}" style="padding: 0; border: none;">
+                                <i class="fas fa-pencil-alt " style="color: green"/> <!-- Solid Trash Icon -->
+                            </h:commandLink>
+                        </td>
+                        <td>
+                            <h:commandLink action="#{employeBean.supp(emp)}" onclick="return confirm('Are you sure??')" style="padding: 0; border: none;">
+                                <i class="fas fa-trash" style="color: green"/> <!-- Solid Trash Icon -->
+                            </h:commandLink>
+                        </td>
+                    </tr>
+                </ui:repeat>
+                </tbody>
+
+                <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: center;">
+                        Nombre total des etudiants est : #{employeBean.employes.size()}
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </h:form>
+    </div>
+
+</h:body>
+
+</html>
