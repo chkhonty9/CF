@@ -1,43 +1,39 @@
 package com.service.impl;
 
 import com.dao.EmployeDAO;
-import com.dto.EmployeDTO;
-import com.mapper.EmployeMapper;
+import com.entity.Employe;
 import com.service.EmployeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class EmployeServiceImpl implements EmployeService {
     @Autowired
     private EmployeDAO dao;
 
-    @Autowired
-    private EmployeMapper mapper;
 
     @Override
     @Transactional
-    public void save(EmployeDTO employeDTO) {
-        this.dao.saveOrUpdate(mapper.fromEmployeDTO(employeDTO));
+    public void save(Employe employe) {
+        this.dao.saveOrUpdate(employe);
     }
 
     @Override
     @Transactional
-    public void delete(EmployeDTO employeDTO) {
-        this.dao.delete(mapper.fromEmployeDTO(employeDTO));
+    public void delete(Employe employe) {
+        this.dao.delete(employe);
     }
 
     @Override
-    public List<EmployeDTO> getAll() {
-        return this.dao.getAll().stream().map(e -> mapper.fromEmploye(e)).collect(Collectors.toList());
+    public List<Employe> getAll() {
+        return this.dao.getAll();
     }
 
     @Override
-    public EmployeDTO getById(int id) {
-        return mapper.fromEmploye(dao.getById(id));
+    public Employe getById(int id) {
+        return dao.getById(id);
     }
 }

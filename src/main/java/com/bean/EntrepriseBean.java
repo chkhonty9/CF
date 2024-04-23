@@ -1,5 +1,6 @@
 package com.bean;
-import com.dto.EntrepriseDTO;
+
+import com.entity.Entreprise;
 import com.service.EntrepriseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -16,19 +17,19 @@ public class EntrepriseBean {
     @Autowired
     private EntrepriseService service;
 
-    private EntrepriseDTO entreprise;
+    private Entreprise entreprise;
     private boolean modifyContext;
 
     public EntrepriseBean() {
-        this.entreprise = new EntrepriseDTO();
+        this.entreprise = new Entreprise();
         this.modifyContext = false;
     }
 
-    public EntrepriseDTO getEntreprise() {
+    public Entreprise getEntreprise() {
         return entreprise;
     }
 
-    public void setEntreprise(EntrepriseDTO entreprise) {
+    public void setEntreprise(Entreprise entreprise) {
         this.entreprise = entreprise;
     }
 
@@ -44,7 +45,7 @@ public class EntrepriseBean {
         return isModifyContext() ? "Modification" : "Ajout";
     }
 
-    public List<EntrepriseDTO> getEntreprises(){
+    public List<Entreprise> getEntreprises(){
         return this.service.getAll();
     }
 
@@ -52,17 +53,17 @@ public class EntrepriseBean {
     public void save(){
         this.service.save(this.entreprise);
         this.setModifyContext(false);
-        this.setEntreprise(new EntrepriseDTO());
+        this.setEntreprise(new Entreprise());
     }
 
-    public void modifier(EntrepriseDTO e) {
+    public void modifier(Entreprise e) {
 
         this.setModifyContext(true);
         this.setEntreprise(e);
     }
 
     @Transactional
-    public void delete(EntrepriseDTO e){
+    public void delete(Entreprise e){
         this.service.delete(e);
     }
 

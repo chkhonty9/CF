@@ -12,20 +12,24 @@
 
     </h:head>
 <h:body>
-    <div class="container mt-4">
-        <h:form>
-            <div class="nav nav-tabs h5">
-                <div class="nav-item">
-                    <h:commandLink action="#{pathBean.updatePage('entreprise')}" value="Entreprise" ajax="true" class="nav-link" style="color: lime;"/>
+    <div class="card">
+        <div class="card-header">
+            <h:form>
+                <div class="nav nav-pills card-header-pills h5">
+                    <div class="nav-item">
+                        <h:commandLink action="#{pathBean.updatePage('entreprise')}" value="Entreprise" ajax="true" class="nav-link" style="color: lime;"/>
+                    </div>
+                    <div class="nav-item">
+                        <h:commandLink action="#{pathBean.updatePage('employe')}" value="Employe" ajax="true" class="nav-link" style="color: lime;"/>
+                    </div>
                 </div>
-                <div class="nav-item">
-                    <h:commandLink action="#{pathBean.updatePage('employe')}" value="Employe" ajax="true" class="nav-link" style="color: lime;"/>
-                </div>
-            </div>
-        </h:form>
-        <ui:insert name="Main">
-            <ui:include src="#{pathBean.currentPage}.xhtml" />
-        </ui:insert>
+            </h:form>
+        </div>
+        <div class="card-body">
+            <ui:insert name="Main">
+                <ui:include src="#{pathBean.currentPage}.xhtml" />
+            </ui:insert>
+        </div>
     </div>
 
 </h:body>

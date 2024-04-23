@@ -1,15 +1,13 @@
 package com.service.impl;
 
 import com.dao.EntrepriseDAO;
-import com.dto.EntrepriseDTO;
-import com.mapper.EntrepriseMapper;
+import com.entity.Entreprise;
 import com.service.EntrepriseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class EntrepriseServiceImpl implements EntrepriseService {
@@ -17,28 +15,26 @@ public class EntrepriseServiceImpl implements EntrepriseService {
     @Autowired
     private EntrepriseDAO dao;
 
-    @Autowired
-    private EntrepriseMapper mapper;
 
     @Override
     @Transactional
-    public void save(EntrepriseDTO entrepriseDTO) {
-        this.dao.saveOrUpdate(mapper.fromEntrepriseDTO(entrepriseDTO));
+    public void save(Entreprise entreprise) {
+        this.dao.saveOrUpdate(entreprise);
     }
 
     @Override
     @Transactional
-    public void delete(EntrepriseDTO entrepriseDTO) {
-        this.dao.delete(mapper.fromEntrepriseDTO(entrepriseDTO));
+    public void delete(Entreprise entreprise) {
+        this.dao.delete(entreprise);
     }
 
     @Override
-    public List<EntrepriseDTO> getAll() {
-        return this.dao.getAll().stream().map(e -> mapper.fromEntreprise(e)).collect(Collectors.toList());
+    public List<Entreprise> getAll() {
+        return this.dao.getAll();
     }
 
     @Override
-    public EntrepriseDTO getById(int id) {
-        return mapper.fromEntreprise(dao.getById(id));
+    public Entreprise getById(int id) {
+        return dao.getById(id);
     }
 }

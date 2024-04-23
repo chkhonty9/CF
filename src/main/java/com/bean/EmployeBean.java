@@ -1,7 +1,6 @@
 package com.bean;
 
-
-import com.dto.EmployeDTO;
+import com.entity.Employe;
 import com.service.EmployeService;
 import com.service.EntrepriseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +20,21 @@ public class EmployeBean {
     @Autowired
     private EntrepriseService entrepriseService;
 
-    private EmployeDTO employe;
+    private Employe employe;
     private boolean modifyContext;
 
     private int entreprise;
 
     public EmployeBean() {
-        this.employe = new EmployeDTO();
+        this.employe = new Employe();
         this.modifyContext = false;
     }
 
-    public EmployeDTO getEmploye() {
+    public Employe getEmploye() {
         return employe;
     }
 
-    public void setEmploye(EmployeDTO employe) {
+    public void setEmploye(Employe employe) {
         this.employe = employe;
     }
 
@@ -51,7 +50,7 @@ public class EmployeBean {
         return isModifyContext() ? "Modification" : "Ajout";
     }
 
-    public List<EmployeDTO> getEmployes(){
+    public List<Employe> getEmployes(){
         return this.employeService.getAll();
     }
 
@@ -69,16 +68,16 @@ public class EmployeBean {
 
         System.out.println("salaire : "+employe.getSalaire());
         this.employeService.save(this.employe);
-        this.setEmploye(new EmployeDTO());
+        this.setEmploye(new Employe());
         this.setModifyContext(false);
     }
 
-    public void modifier(EmployeDTO e){
+    public void modifier(Employe e){
         this.setEmploye(e);
         this.setModifyContext(true);
     }
 
-    public void supp(EmployeDTO e){
+    public void supp(Employe e){
         this.employeService.delete(e);
     }
 }

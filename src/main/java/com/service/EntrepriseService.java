@@ -1,14 +1,15 @@
 package com.service;
 
-import com.dto.EntrepriseDTO;
+
+import com.entity.Entreprise;
 
 import java.util.List;
 
 public interface EntrepriseService {
 
-    void save(EntrepriseDTO entrepriseDTO);
-    void delete(EntrepriseDTO entrepriseDTO);
-    List<EntrepriseDTO> getAll();
-    EntrepriseDTO getById(int id);
+    void save(Entreprise entreprise);
+    void delete(Entreprise entreprise);
+    List<Entreprise> getAll();
+    Entreprise getById(int id);
 
 }
